@@ -49,31 +49,37 @@ Create a free instance at `https://console.cognodb.com/signup`. The assignment s
 
 ### 2. Configure environment
 
+Create a virtual environment and install dependencies:
+
 ```bash
 python -m venv .venv
 # macOS/Linux
 source .venv/bin/activate
 # Windows PowerShell
-# .venv\\Scripts\\Activate.ps1
+.venv\\Scripts\\Activate.ps1
 
 pip install -r requirements.txt
 ```
 
 Copy `.env.example` to `.env` and set:
 
-```bash
+```text
 COGNODB_URI=bolt+s://<instance-id>.databases.cognodb.cloud
 COGNODB_USERNAME=cognodb
 COGNODB_PASSWORD=<your-generated-password>
 ```
 
-### 3. Seed realistic data
+The application and seed script automatically load `.env` using `python-dotenv`; no manual `export` commands are required. Never commit `.env`.
+
+### 3. Verify the database and seed data
+
+Run:
 
 ```bash
 python scripts/seed.py
 ```
 
-The seed creates 6 people, 9 skills, 5 roles and 3 companies with typed relationships.
+The seed creates 6 people, 9 skills, 5 roles and 3 companies with typed relationships. It clears the existing graph first, so use it only against the assignment database.
 
 ### 4. Start the application
 
@@ -87,6 +93,17 @@ For production:
 
 ```bash
 gunicorn --bind 0.0.0.0:5000 app:app
+```
+
+A standard `Procfile` is also included for platforms that use it.
+
+### 5. Run with Docker
+
+Build and start the application:
+
+```bash
+docker build -t careergraph .
+docker run --rm -p 5000:5000 --env-file .env careergraph
 ```
 
 ## Main Cypher queries
@@ -129,6 +146,6 @@ If CognoDB is unreachable or environment variables are missing, the application 
 - Data model diagram: included above.
 - Setup/run instructions: included above.
 - Hosted demo: deploy using `render.yaml` and add the real URL before submission.
-- Screen recording: record the finished live flow after deployment and database seeding.
+- Screen recording: record the finished live flow after deployment.
 
 > The repository intentionally contains no database credentials and does not fabricate a hosted-demo URL or screenshot. Those must be generated from the live CognoDB instance/deployment before final submission.
