@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareerGraph · Graph-powered career explorer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">COGNODB · GRAPH DATABASE DEMO</p>
+        <h1>CareerGraph</h1>
+        <p class="subtitle">Explore how people, skills, roles and companies connect — not just how they look in rows.</p>
+      </div>
+      <div id="health" class="status">Checking database…</div>
+    </header>
+
+    <section class="card search-card">
+      <div>
+        <p class="eyebrow">GRAPH EXPLORER</p>
+        <h2>Find career paths from a skill</h2>
+        <p class="muted">Try Python, Java, GraphQL, SQL, React or Machine Learning.</p>
+      </div>
+      <form id="search-form">
+        <input id="skill" name="skill" placeholder="e.g. Python" autocomplete="off" required>
+        <button type="submit">Explore connections</button>
+      </form>
+    </section>
+
+    <section id="results" class="results"></section>
+
+    <section class="section-head">
+      <div>
+        <p class="eyebrow">ROLE MAP</p>
+        <h2>Roles in the graph</h2>
+      </div>
+      <button id="reload" class="ghost">Refresh</button>
+    </section>
+    <section id="roles" class="role-grid"></section>
+
+    <footer>Built with Flask + the official Neo4j Python driver + CognoDB / openCypher.</footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
